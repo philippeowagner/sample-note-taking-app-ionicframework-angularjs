@@ -1,1 +1,26 @@
-# sample-note-taking-app-ionicframework-angularjs
+## Sample note taking app ionic & angularjs
+
+This is a sample note taking app based on ionic framework.
+
+### Install Ionic
+
+	$ npm install -g cordova ionic
+		
+### View in Browser
+
+	$ cd sample-note-taking-app-ionicframework-angularjs
+	$ ionic serve
+
+### View in iOS Emulator (on Mac)
+
+	$ cd sample-note-taking-app-ionicframework-angularjs
+	$ cordova platform add ios
+	$ ionic build ios
+	$ ionic emulate ios
+
+### View in Android Emulator
+
+	$ cd sample-note-taking-app-ionicframework-angularjs
+	$ cordova platform add android
+	$ ionic build android
+	$ ionic emulate android
