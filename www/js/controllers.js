@@ -76,10 +76,10 @@
 
             $scope.save = function() {
                 var body = $scope.note.body.trim();
-                $scope.note.body = "";
                 if (body !== "") {
                     Notes.add(body);
                 }
+                $scope.note.body = "";
             };
 
             $scope.cancel = function() {

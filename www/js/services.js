@@ -71,7 +71,7 @@
                 return newNote;
             },
             remove: function(id) {
-                for (var i = 0; i < notes.length; i++) {
+                for (var i = 0, len = notes.length; i < len; i++) {
                     if (notes[i].id === id) {
                         notes.splice(i, 1);
                         return true;
@@ -80,7 +80,7 @@
                 return false;
             },
             get: function(id) {
-                for (var i = 0; i < notes.length; i++) {
+                for (var i = 0, len = notes.length; i < len; i++) {
                     if (notes[i].id === id) {
                         return notes[i];
                     }
@@ -88,7 +88,7 @@
                 return null;
             },
             getPrev: function (id) {
-                for (var i = 0; i < notes.length; i++) {
+                for (var i = 0, len = notes.length; i < len; i++) {
                     if (notes[i].id === id && i > 0) {
                         return notes[i-1];
                     }
@@ -96,8 +96,8 @@
                 return null;
             },
             getNext: function (id) {
-                for (var i = 0; i < notes.length; i++) {
-                    if (notes[i].id === id && i < notes.length) {
+                for (var i = 0, len = notes.length; i < len; i++) {
+                    if (notes[i].id === id && i < len-1) {
                         return notes[i+1];
                     }
                 }
