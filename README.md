@@ -1,6 +1,6 @@
 ## Sample note taking app ionic & angularjs
 
-This is a sample note taking app based on ionic framework.
+This is a sample note taking app based on ionic framework just for demonstrating purposes.
 
 ### Install Ionic
 
