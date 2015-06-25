@@ -1,6 +1,6 @@
 <ion-view view-title="{{note.name}}">
     <ion-nav-buttons side="left">
-        <a class="button button-icon button-clear ion-ios-arrow-left" ui-sref="notes"> &nbsp; Back</a>
+        <button class="button button-icon button-clear ion-ios-arrow-left" ng-click="update()"> &nbsp; Back</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-ios-trash-outline" ng-click="confirmRemove()"></button>

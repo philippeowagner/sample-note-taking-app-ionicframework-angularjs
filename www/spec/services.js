@@ -1,6 +1,9 @@
 describe("NoteTaker: Testing Services", function() {
 
-    beforeEach(module('noteTaker.services'));
+    beforeEach(function () {
+        module('LocalStorageModule');
+        module('noteTaker.services');
+    });
 
     describe("The Note Factory:", function() {
 

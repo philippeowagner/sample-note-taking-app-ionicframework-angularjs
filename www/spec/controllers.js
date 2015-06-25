@@ -2,6 +2,7 @@ describe('NoteTaker: Testing Controllers', function() {
 
     beforeEach(function() {
         module('ionic');
+        module('LocalStorageModule');
         module('noteTaker.services');
         module('noteTaker.controllers');
     });

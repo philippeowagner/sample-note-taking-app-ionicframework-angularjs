@@ -20,7 +20,7 @@
         };
     })
 
-    .factory('Note', ["UniqueId", function(UniqueId) {
+    .factory('Note', ['UniqueId', function(UniqueId) {
 
         function Note(body) {
             this.body = body;
@@ -39,9 +39,18 @@
         };
     }])
 
-    .factory('Notes', ["Note", function(Note) {
+    .factory('Notes', ['Note', 'localStorageService', function(Note, localStorageService) {
 
         var notes = [];
+
+        if (localStorageService.isSupported) {
+            var storedNotes = localStorageService.get("notes");
+            if (angular.isArray(storedNotes)) {
+                notes = storedNotes;
+            } else {
+                localStorageService.set("notes", []);
+            }
+        }
 
         function generateNotes(count) {
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -57,7 +66,10 @@
 
         // generateNotes(3000);
 
-        return {
+        var exports = {
+            save: function () {
+                localStorageService.set("notes", notes);
+            },
             reset: function() {
                 notes.splice(0, notes.length);
                 return notes;
@@ -68,12 +80,14 @@
             add: function(body) {
                 var newNote = Note.new(body);
                 notes.push(newNote);
+                this.save();
                 return newNote;
             },
             remove: function(id) {
                 for (var i = 0, len = notes.length; i < len; i++) {
                     if (notes[i].id === id) {
                         notes.splice(i, 1);
+                        this.save();
                         return true;
                     }
                 }
@@ -87,22 +101,24 @@
                 }
                 return null;
             },
-            getPrev: function (id) {
+            getPrev: function(id) {
                 for (var i = 0, len = notes.length; i < len; i++) {
                     if (notes[i].id === id && i > 0) {
-                        return notes[i-1];
+                        return notes[i - 1];
                     }
                 }
                 return null;
             },
-            getNext: function (id) {
+            getNext: function(id) {
                 for (var i = 0, len = notes.length; i < len; i++) {
-                    if (notes[i].id === id && i < len-1) {
-                        return notes[i+1];
+                    if (notes[i].id === id && i < len - 1) {
+                        return notes[i + 1];
                     }
                 }
                 return null;
             }
         };
+
+        return exports;
     }]);
 })();

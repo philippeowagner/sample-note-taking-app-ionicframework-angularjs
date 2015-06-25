@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('noteTaker', ['ionic', 'noteTaker.filters', 'noteTaker.controllers', 'noteTaker.services'])
+    angular.module('noteTaker', ['ionic', 'LocalStorageModule', 'noteTaker.filters', 'noteTaker.controllers', 'noteTaker.services'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -12,6 +12,13 @@
                 StatusBar.styleLightContent();
             }
         });
+    })
+
+    .config(function(localStorageServiceProvider) {
+        localStorageServiceProvider
+            .setPrefix('noteTaker')
+            .setStorageType('localStorage')
+            .setNotify(true, true);
     })
 
     .config(function($stateProvider, $urlRouterProvider) {

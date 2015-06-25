@@ -41,6 +41,15 @@
             $scope.prev = Notes.getPrev($stateParams.noteId);
             $scope.next = Notes.getNext($stateParams.noteId);
 
+            $scope.update = function () {
+                if ($scope.note.body.trim() !== "") {
+                    Notes.save();
+                } else {
+                    Notes.remove($scope.note.id)
+                }
+                $state.go("notes");
+            };
+
             $scope.confirmRemove = function() {
                 var hideSheet = $ionicActionSheet.show({
                     destructiveText: 'Delete',
