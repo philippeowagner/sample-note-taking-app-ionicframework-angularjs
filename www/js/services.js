@@ -39,12 +39,12 @@
         };
     }])
 
-    .factory('Notes', ["Note", "$timeout", function(Note, $timeout) {
+    .factory('Notes', ["Note", function(Note) {
 
         var notes = [];
 
         function generateNotes(count) {
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-_+";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             for (var i = 0; i < count; i++) {
                 var item = "";
                 for (var c = 0; c < 10; c++) {
@@ -59,7 +59,7 @@
 
         return {
             reset: function() {
-                notes = [];
+                notes.splice(0, notes.length);
                 return notes;
             },
             getAll: function() {
