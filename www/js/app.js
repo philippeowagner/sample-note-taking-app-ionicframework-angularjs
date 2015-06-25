@@ -1,40 +1,44 @@
-angular.module('noteTaker', ['ionic', 'noteTaker.filters', 'noteTaker.controllers', 'noteTaker.services'])
+(function() {
+    'use strict';
 
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
-        if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-        }
-        if (window.StatusBar) {
-            StatusBar.styleLightContent();
-        }
-    });
-})
+    angular.module('noteTaker', ['ionic', 'noteTaker.filters', 'noteTaker.controllers', 'noteTaker.services'])
 
-.config(function($stateProvider, $urlRouterProvider) {
-
-    $stateProvider
-
-        .state('notes', {
-            url: '/notes',
-            templateUrl: 'templates/tab-notes.html',
-            controller: 'NotesCtrl'
-        })
-        .state('notes-detail', {
-            url: '/notes/:noteId',
-            templateUrl: 'templates/note-detail.html',
-            controller: 'NoteDetailCtrl'
-        })
-        .state('notes-add', {
-            url: '/notes/add',
-            templateUrl: 'templates/note-add.html',
-            controller: 'NoteAddCtrl'
-        })
-        .state('notes-about', {
-            url: '/notes/about',
-            templateUrl: 'templates/about.html'
+    .run(function($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+            }
+            if (window.StatusBar) {
+                StatusBar.styleLightContent();
+            }
         });
+    })
 
-    $urlRouterProvider.otherwise('/notes');
+    .config(function($stateProvider, $urlRouterProvider) {
 
-});
+        $stateProvider
+
+            .state('notes', {
+                url: '/notes',
+                templateUrl: 'templates/tab-notes.html',
+                controller: 'NotesCtrl'
+            })
+            .state('notes-detail', {
+                url: '/notes/:noteId',
+                templateUrl: 'templates/note-detail.html',
+                controller: 'NoteDetailCtrl'
+            })
+            .state('notes-add', {
+                url: '/notes/add',
+                templateUrl: 'templates/note-add.html',
+                controller: 'NoteAddCtrl'
+            })
+            .state('notes-about', {
+                url: '/notes/about',
+                templateUrl: 'templates/about.html'
+            });
+
+        $urlRouterProvider.otherwise('/notes');
+
+    });
+})();

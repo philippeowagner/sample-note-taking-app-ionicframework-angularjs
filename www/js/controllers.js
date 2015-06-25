@@ -1,64 +1,67 @@
-angular.module('noteTaker.controllers', [])
+(function() {
+    'use strict';
 
-.controller('NotesCtrl', function($scope, $filter, $stateParams, Notes) {
+    angular.module('noteTaker.controllers', [])
 
-    var orderBy = $filter('orderBy');
+    .controller('NotesCtrl', ["$scope", "$filter", "$stateParams", "Notes", function($scope, $filter, $stateParams, Notes) {
 
-    $scope.order = function(predicate, reverse) {
-        $scope.notes = orderBy($scope.notes, predicate, reverse);
-    };
+        var orderBy = $filter('orderBy');
 
-    $scope.sortBy = "modified_date";
-    $scope.reverse = true;
+        $scope.order = function(sortBy, reverse) {
+            $scope.notes = orderBy($scope.notes, sortBy, reverse);
+        };
 
-    $scope.order($scope.sortBy, $scope.reverse);
+        function sortNote(sortBy, reverse) {
+            $scope.sortBy = sortBy;
+            $scope.reverse = reverse;
+            $scope.order($scope.sortBy, $scope.reverse);
+        }
 
-    $scope.sortByDate = function() {
-        $scope.reverse = !$scope.reverse;
-        $scope.sortBy = 'modified_date';
-        $scope.order($scope.sortBy, $scope.reverse);
-    }
+        sortNote("modified_date", true);
 
-    $scope.sortByTitle = function() {
-        $scope.reverse = !$scope.reverse;
-        $scope.sortBy = 'body';
-        $scope.order($scope.sortBy, $scope.reverse);
-    }
+        $scope.sortByDate = function() {
+            sortNote("modified_date", !$scope.reverse);
+        };
 
-    $scope.search = "";
+        $scope.sortByTitle = function() {
+            sortNote("body", !$scope.reverse);
+        };
 
-    $scope.notes = Notes.all();
-})
+        $scope.search = "";
 
-.controller('NoteDetailCtrl', function($scope, $stateParams, $ionicActionSheet, $timeout, Notes) {
-    $scope.note = Notes.get($stateParams.noteId);
-    $scope.prev = function() {};
-    $scope.next = function() {};
-    $scope.save = function() {};
-    $scope.remove = function() {
-        Notes.remove($scope.note);
-    };
+        $scope.notes = Notes.getAll();
+    }])
 
-    $scope.confirmRemove = function() {
+    .controller('NoteDetailCtrl', ["$scope", "$stateParams", "$ionicActionSheet", "$timeout", "Notes", function($scope, $stateParams, $ionicActionSheet, $timeout, Notes) {
+        $scope.note = Notes.get($stateParams.noteId);
+        $scope.prev = function() {};
+        $scope.next = function() {};
+        $scope.save = function() {};
+        $scope.remove = function() {
+            Notes.remove($scope.note);
+        };
 
-        // Show the action sheet
-        var hideSheet = $ionicActionSheet.show({
-            destructiveText: 'Delete',
-            titleText: 'Delete this note?',
-            cancelText: 'Cancel',
-            cancel: function() {
-                console.log("cancel");
-            },
-            destructiveButtonClicked: function() {
-                console.log("delete");
-                return true;
-            }
-        });
+        $scope.confirmRemove = function() {
 
-    };
-})
+            // Show the action sheet
+            var hideSheet = $ionicActionSheet.show({
+                destructiveText: 'Delete',
+                titleText: 'Delete this note?',
+                cancelText: 'Cancel',
+                cancel: function() {
+                    console.log("cancel");
+                },
+                destructiveButtonClicked: function() {
+                    console.log("delete");
+                    return true;
+                }
+            });
 
-.controller('NoteAddCtrl', function($scope, $stateParams, Notes) {
-    $scope.save = function() {};
-    $scope.cancel = function() {};
-});
+        };
+    }])
+
+    .controller('NoteAddCtrl', ["$scope", "$stateParams", "Notes", function($scope, $stateParams, Notes) {
+        $scope.save = function() {};
+        $scope.cancel = function() {};
+    }]);
+})();
