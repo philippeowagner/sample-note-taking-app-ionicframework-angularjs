@@ -28,7 +28,9 @@
                 sortNote("body", !$scope.reverse);
             };
 
-            $scope.search = "";
+            $scope.search = {
+                body: ""
+            };
 
             $scope.notes = Notes.getAll();
         }
