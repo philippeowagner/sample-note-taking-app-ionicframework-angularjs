@@ -9,6 +9,7 @@ This is a sample note taking app based on ionic framework just for demonstrating
 ### View in Browser
 
 	$ cd sample-note-taking-app-ionicframework-angularjs
+	$ bower install
 	$ ionic serve
 
 ### View in iOS Emulator (on Mac)
