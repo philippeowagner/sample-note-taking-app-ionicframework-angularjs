@@ -34,19 +34,14 @@
         }
     ])
 
-    .controller('NoteDetailCtrl', ["$scope", "$stateParams", "$ionicActionSheet", "$timeout", "Notes",
-        function($scope, $stateParams, $ionicActionSheet, $timeout, Notes) {
+    .controller('NoteDetailCtrl', ["$scope", "$state", "$stateParams", "$ionicActionSheet", "Notes",
+        function($scope, $state, $stateParams, $ionicActionSheet, Notes) {
+
             $scope.note = Notes.get($stateParams.noteId);
-            $scope.prev = function() {};
-            $scope.next = function() {};
-            $scope.save = function() {};
-            $scope.remove = function() {
-                Notes.remove($scope.note);
-            };
+            $scope.prev = Notes.getPrev($stateParams.noteId);
+            $scope.next = Notes.getNext($stateParams.noteId);
 
             $scope.confirmRemove = function() {
-
-                // Show the action sheet
                 var hideSheet = $ionicActionSheet.show({
                     destructiveText: 'Delete',
                     titleText: 'Delete this note?',
@@ -55,19 +50,41 @@
                         console.log("cancel");
                     },
                     destructiveButtonClicked: function() {
-                        console.log("delete");
+                        Notes.remove($stateParams.noteId);
+                        $state.go("notes");
                         return true;
                     }
                 });
+            };
 
+            $scope.go = function(direction) {
+                console.log(direction);
+                var note = $scope[direction];
+                if (note !== null) {
+                     $state.go("notes-detail", { noteId: note.id });
+                }
             };
         }
     ])
 
     .controller('NoteAddCtrl', ["$scope", "Notes",
         function($scope, Notes) {
-            $scope.save = function() {};
-            $scope.cancel = function() {};
+
+            $scope.note = {
+                body: ""
+            };
+
+            $scope.save = function() {
+                var body = $scope.note.body.trim();
+                $scope.note.body = "";
+                if (body !== "") {
+                    Notes.add(body);
+                }
+            };
+
+            $scope.cancel = function() {
+                $scope.note.body = "";
+            };
         }
     ]);
 })();

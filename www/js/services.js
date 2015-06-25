@@ -86,6 +86,22 @@
                     }
                 }
                 return null;
+            },
+            getPrev: function (id) {
+                for (var i = 0; i < notes.length; i++) {
+                    if (notes[i].id === id && i > 0) {
+                        return notes[i-1];
+                    }
+                }
+                return null;
+            },
+            getNext: function (id) {
+                for (var i = 0; i < notes.length; i++) {
+                    if (notes[i].id === id && i < notes.length) {
+                        return notes[i+1];
+                    }
+                }
+                return null;
             }
         };
     }]);

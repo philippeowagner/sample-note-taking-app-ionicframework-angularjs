@@ -1,13 +1,13 @@
 <ion-view view-title="Add Note">
     <ion-nav-bar class="bar-gray">
         <ion-nav-buttons side="left">
-            <a class="button button-icon ion-ios-close-empty" ui-sref="notes"></a>
+            <a class="button button-icon ion-ios-close-empty" ui-sref="notes" ng-click="cancel()"></a>
         </ion-nav-buttons>
         <ion-nav-buttons side="right">
-            <button class="button button-icon ion-ios-checkmark-empty" ng-click="save()"></button>
+            <a class="button button-icon ion-ios-checkmark-empty" ui-sref="notes" ng-click="save()"></a>
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content class="padding">
-        <textarea placeholder="Your notes" style="width: 100%; height: 100px;"></textarea>
+        <textarea placeholder="Your notes" style="width: 100%; height: 100px;" ng-model="note.body"></textarea>
     </ion-content>
 </ion-view>
