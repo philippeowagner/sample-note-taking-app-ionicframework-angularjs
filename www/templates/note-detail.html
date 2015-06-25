@@ -6,7 +6,8 @@
         <button class="button button-icon button-clear ion-ios-trash-outline" ng-click="confirmRemove()"></button>
     </ion-nav-buttons>
     <ion-content class="padding">
-        <textarea placeholder="Your notes" style="width: 100%; height: 100px;" ng-model="note.body"></textarea>
+        <textarea placeholder="Your notes" style="width: 100%; height: 100px;"
+            ng-model="note.body" ng-change="autoSave()"></textarea>
     </ion-content>
     <div class="bar bar-footer bar-dark">
         <button class="button button-clear pull-left icon-left ion-android-arrow-back" 

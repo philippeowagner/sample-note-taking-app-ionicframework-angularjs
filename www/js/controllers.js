@@ -36,8 +36,10 @@
         }
     ])
 
-    .controller('NoteDetailCtrl', ["$scope", "$state", "$stateParams", "$ionicActionSheet", "Notes",
-        function($scope, $state, $stateParams, $ionicActionSheet, Notes) {
+    .controller('NoteDetailCtrl', ["$scope", "$timeout", "$state", "$stateParams", "$ionicActionSheet", "Notes",
+        function($scope, $timeout, $state, $stateParams, $ionicActionSheet, Notes) {
+
+            var doAutoSave;
 
             $scope.note = Notes.get($stateParams.noteId);
             $scope.prev = Notes.getPrev($stateParams.noteId);
@@ -47,10 +49,19 @@
                 if ($scope.note.body.trim() !== "") {
                     Notes.save();
                 } else {
-                    Notes.remove($scope.note.id)
+                    Notes.remove($scope.note.id);
                 }
                 $state.go("notes");
             };
+
+            $scope.autoSave = function () {
+                $timeout.cancel(doAutoSave);
+                doAutoSave = $timeout(function() {
+                    if ($scope.note.body.trim() !== "") {
+                        Notes.save();
+                    }
+                }, 1000);
+            }
 
             $scope.confirmRemove = function() {
                 var hideSheet = $ionicActionSheet.show({
