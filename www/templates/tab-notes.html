@@ -13,7 +13,9 @@
     </div>
     <ion-content>
         <div class="list" style="margin-top: 40px;">
-            <ion-item class="item-icon-left item-icon-right" ng-repeat="note in notes | filter:search track by $index" type="item-text-wrap" ui-sref="notes-detail({ noteId: note.id })">
+            <ion-item class="item-icon-left item-icon-right" 
+                      ng-repeat="note in notes | filter:search | limitTo:30 track by note.id"
+                      type="item-text-wrap" ui-sref="notes-detail({ noteId: note.id })">
                 <i class="icon ion-ios-paper-outline"></i>
                 <small>{{note.body | cut:true:20:' ...'}}</small>
                 <span class="item-note">
