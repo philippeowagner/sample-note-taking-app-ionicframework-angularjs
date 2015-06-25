@@ -1,51 +1,92 @@
-angular.module('noteTaker.services', [])
+(function() {
+    'use strict';
 
-.factory('Notes', function() {
+    angular.module('noteTaker.services', [])
 
-    var notes = [{
-        id: 0,
-        body: 'A note 1\n content long long text F',
-        modified_date: "6/24/2015"
-    }, {
-        id: 1,
-        body: 'C note 2\n content',
-        modified_date: "6/23/2015"
-    }, {
-        id: 2,
-        body: 'B note 3\n content',
-        modified_date: "6/22/2015"
-    }, {
-        id: 3,
-        body: 'E note 4\n content',
-        modified_date: "6/21/2015"
-    }, {
-        id: 4,
-        body: 'D note 5\n content',
-        modified_date: "6/20/2015"
-    }];
+    .factory('UniqueId', function() {
 
-    // for (var i = 0; i < 1000; i++) {
-    //     notes.push({
-    //         id: i,
-    //         body: 'A note ' + i + ' \n content',
-    //         modified_date: "6/23/2015"
-    //     });
-    // }
-
-    return {
-        all: function() {
-            return notes;
-        },
-        remove: function(note) {
-            notes.splice(notes.indexOf(note), 1);
-        },
-        get: function(noteId) {
-            for (var i = 0; i < notes.length; i++) {
-                if (notes[i].id === parseInt(noteId)) {
-                    return notes[i];
+        return {
+            new: function() {
+                function _p8(s) {
+                    var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+                    return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
                 }
+                return _p8() + _p8(true) + _p8(true) + _p8();
+            },
+
+            empty: function() {
+                return '00000000-0000-0000-0000-000000000000';
             }
-            return null;
+        };
+    })
+
+    .factory('Note', ["UniqueId", function(UniqueId) {
+
+        function Note(body) {
+            this.body = body;
+            this.id = UniqueId.new();
+            this.updateModifiedDate();
         }
-    };
-});
+
+        Note.prototype.updateModifiedDate = function() {
+            this.modified_date = new Date().getTime();
+        };
+
+        return {
+            new: function(body) {
+                return new Note(body);
+            }
+        };
+    }])
+
+    .factory('Notes', ["Note", "$timeout", function(Note, $timeout) {
+
+        var notes = [];
+
+        function generateNotes(count) {
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-_+";
+            for (var i = 0; i < count; i++) {
+                var item = "";
+                for (var c = 0; c < 10; c++) {
+                    item += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                item = item + " (" + i + ")";
+                notes.push(Note.new(item));
+            }
+        }
+
+        // generateNotes(3000);
+
+        return {
+            reset: function() {
+                notes = [];
+                return notes;
+            },
+            getAll: function() {
+                return notes;
+            },
+            add: function(body) {
+                var newNote = Note.new(body);
+                notes.push(newNote);
+                return newNote;
+            },
+            remove: function(id) {
+                for (var i = 0; i < notes.length; i++) {
+                    if (notes[i].id === id) {
+                        notes.splice(i, 1);
+                        return true;
+                    }
+                }
+                return false;
+            },
+            get: function(id) {
+                for (var i = 0; i < notes.length; i++) {
+                    if (notes[i].id === id) {
+                        return notes[i];
+                    }
+                }
+                return null;
+            }
+        };
+    }]);
+})();
