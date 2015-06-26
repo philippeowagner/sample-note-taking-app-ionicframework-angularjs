@@ -2,10 +2,10 @@
 
 This is a sample note taking app based on ionic framework just for demonstrating purposes.
 
-![image](/screenshots/IMG_1514.png?raw=true =120x)
-![image](/screenshots/IMG_1515.png?raw=true =120x)
-![image](/screenshots/IMG_1516.png?raw=true =120x)
-![image](/screenshots/IMG_1517.png?raw=true =120x)
+![image](https://raw.githubusercontent.com/vinhhungle/sample-note-taking-app-ionicframework-angularjs/master/screenshots/IMG_1514.PNG =120x)
+![image](https://raw.githubusercontent.com/vinhhungle/sample-note-taking-app-ionicframework-angularjs/master/screenshots/IMG_1515.PNG =120x)
+![image](https://raw.githubusercontent.com/vinhhungle/sample-note-taking-app-ionicframework-angularjs/master/screenshots/IMG_1516.PNG =120x)
+![image](https://raw.githubusercontent.com/vinhhungle/sample-note-taking-app-ionicframework-angularjs/master/screenshots/IMG_1517.PNG =120x)
 
 ### Install Ionic
 
