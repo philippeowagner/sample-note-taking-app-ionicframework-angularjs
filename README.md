@@ -2,6 +2,11 @@
 
 This is a sample note taking app based on ionic framework just for demonstrating purposes.
 
+![image](http://www.vinhhungle.com/wp-content/uploads/2015/06/IMG_1514.png =120x)
+![image](http://www.vinhhungle.com/wp-content/uploads/2015/06/IMG_1515.png =120x)
+![image](http://www.vinhhungle.com/wp-content/uploads/2015/06/IMG_1516.png =120x)
+![image](http://www.vinhhungle.com/wp-content/uploads/2015/06/IMG_1517.png =120x)
+
 ### Install Ionic
 
 	$ npm install -g cordova ionic
