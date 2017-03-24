@@ -9,7 +9,7 @@ This is a sample note taking app based on ionic framework just for demonstrating
 
 ### Install Ionic
 
-	$ npm install -g cordova ionic
+	$ npm install -g cordova ionic bower
 		
 ### View in Browser
 
